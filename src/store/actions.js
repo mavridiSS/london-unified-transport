@@ -1,6 +1,15 @@
-export function TestFunction(value) {
+export function fetchNearbyStops(lat, lng) {
   return {
-    type: "Test",
-    value
+    type: "FETCH_NEARBY_STOPS",
+    lat,
+    lng
+  };
+}
+
+export function setCoordinates(lat, lng) {
+  return {
+    type: "SET_COORDINATES",
+    lat,
+    lng
   };
 }

@@ -1,17 +1,25 @@
 const initialState = {
-  value: 5
+  lat: null,
+  lng: null,
+  nearbyStops: []
 };
 
-function TestReducer(state = initialState, action) {
+function rootReducer(state = initialState, action) {
   switch (action.type) {
-    case "Test":
+    case "SET_COORDINATES":
       return {
         ...state,
-        value: action.value
+        lat: action.lat,
+        lng: action.lng
+      };
+    case "FETCH_NEARBY_STOPS":
+      return {
+        ...state,
+        nearbyStops: action.payload
       };
     default:
       return state;
   }
 }
 
-export default TestReducer;
+export default rootReducer;

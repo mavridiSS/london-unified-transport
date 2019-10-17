@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import LocationInput from "./components/LocationInput";
+import MainComponentWrapper from "./components/MainComponentWrapper";
 
 function App() {
   return (
     <div className="App">
-      <LocationInput />
+      <MainComponentWrapper />
     </div>
   );
 }

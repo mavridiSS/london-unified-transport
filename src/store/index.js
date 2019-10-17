@@ -1,7 +1,6 @@
 import { createStore } from "redux";
-import TestReducer from "./reducers";
-import { TestFunction } from "./actions";
+import rootReducer from "./reducers";
 
-const store = createStore(TestReducer);
+const store = createStore(rootReducer);
 
 export default store;
