@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import MainComponentWrapper from "./components/MainComponentWrapper";
+import MapWrapperContainer from "./components/MapWrapperContainer";
 
 function App() {
   return (
     <div className="App">
-      <MainComponentWrapper />
+      <MapWrapperContainer />
     </div>
   );
 }

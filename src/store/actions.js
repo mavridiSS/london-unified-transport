@@ -1,17 +1,11 @@
-const API_ID = "0093cee0";
-const APP_KEY = "c52c799560463d2518c24ab27e00038d";
+import { getStopPointTimetableURL, getNearbyStopsURL } from "./../utils";
 
-const BASE_URL = "https://api.tfl.gov.uk";
-const API_ROUTE = "/StopPoint/Meta/Modes";
-// const API_URL = `${BASE_URL}${API_ROUTE}?app_key=${APP_KEY}&app_id=${API_ID}`;
-const API_URL = `https://api.tfl.gov.uk/Stoppoint?lat=51.513395&lon=-0.089095&stoptypes=NaptanMetroStation,NaptanRailStation,NaptanBusCoachStation,NaptanPublicBusCoachTram&radius=200&app_key=${APP_KEY}&app_id=${API_ID}`;
-const STOP_POINT_TIMETABLE_URL = `https://api.tfl.gov.uk/Line/${lineId}/Timetable/${stopPointId}?app_key=${APP_KEY}&app_id=${API_ID}`;
-
-export function fetchNearbyStops() {
+export function setCoordinatesAndFetchNearbyStops(lat, lng) {
   return dispatch => {
+    dispatch(setCoordinates(lat, lng));
     dispatch(requestNearbyStops());
 
-    return fetch(API_URL)
+    return fetch(getNearbyStopsURL(lat, lng))
       .then(res => res.json())
       .then(
         data => dispatch(receiveNearbyStops(data)),
@@ -54,10 +48,11 @@ export function requestStopPointTimetable() {
   };
 }
 
-export function receiveStopPointTimetable(data) {
+export function receiveStopPointTimetable(data, stopPointId) {
   return {
     type: "RECEIVE_STOP_POINT_TIMETABLE",
-    payload: data
+    payload: data,
+    stopPointId
   };
 }
 
@@ -72,10 +67,10 @@ export function fetchStopPointTimetable(lineId, stopPointId) {
   return dispatch => {
     dispatch(requestStopPointTimetable());
 
-    return fetch(API_URL)
+    return fetch(getStopPointTimetableURL(lineId, stopPointId))
       .then(res => res.json())
       .then(
-        data => dispatch(receiveStopPointTimetable(data)),
+        data => dispatch(receiveStopPointTimetable(data, stopPointId)),
         error => dispatch(requestStopPointTimetableFailure(error))
       );
   };

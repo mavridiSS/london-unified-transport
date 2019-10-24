@@ -2,7 +2,7 @@ const initialState = {
   lat: null,
   lng: null,
   nearbyStops: [],
-  stopPointTimetable: [],
+  stopPointsTimetables: {},
   isFetching: false,
   errorMsg: ""
 };
@@ -38,7 +38,10 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         isFetching: false,
-        stopPointTimetable: action.payload
+        stopPointsTimetables: {
+          ...state.stopPointsTimetables,
+          [action.stopPointId]: action.payload
+        }
       };
     default:
       return state;

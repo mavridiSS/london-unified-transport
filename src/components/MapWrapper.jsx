@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import MapWrapped from "./Map";
+import Map from "./Map";
+import { GOOGLE_MAPS_URL } from "../constants";
 
-export class MainComponent extends Component {
+export class MapWrapper extends Component {
   constructor(props) {
     super(props);
 
@@ -12,7 +13,7 @@ export class MainComponent extends Component {
 
   locationSuccess = position => {
     const { latitude, longitude } = position.coords;
-    this.props.setCoordinates(latitude, longitude);
+    this.props.setCoordinatesAndFetchNearbyStops(latitude, longitude);
   };
 
   locationError = error => {
@@ -30,18 +31,31 @@ export class MainComponent extends Component {
 
   render() {
     const { error } = this.state;
-    const { lat, lng } = this.props;
+    const {
+      lat,
+      lng,
+      fetchStopPointTimetable,
+      setCoordinatesAndFetchNearbyStops,
+      data,
+      stopPointsTimetables,
+      isFetching
+    } = this.props;
 
-    if (error) {
+    if (error || (!lat || !lng)) {
       return <h1>{error}</h1>;
     }
 
     return (
       <div style={{ width: "100vw", height: "100vh" }}>
-        <MapWrapped
+        <Map
           lat={lat}
           lng={lng}
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_KEY}`}
+          onStopPointClick={fetchStopPointTimetable}
+          setCoordinatesAndFetchNearbyStops={setCoordinatesAndFetchNearbyStops}
+          data={data}
+          isFetching={isFetching}
+          stopPointsTimetables={stopPointsTimetables}
+          googleMapURL={GOOGLE_MAPS_URL}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}
@@ -51,4 +65,4 @@ export class MainComponent extends Component {
   }
 }
 
-export default MainComponent;
+export default MapWrapper;
