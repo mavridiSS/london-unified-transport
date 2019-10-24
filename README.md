@@ -4,7 +4,7 @@ Currently the app is only working for public transport in London and it uses fre
 
 ## Prerequisites
 
-[Google Maps API Key](https://developers.google.com/maps/documentation/javascript/get-api-key)
-[London Unified APP Key and API ID](https://api.tfl.gov.uk/)
+- [Google Maps API Key](https://developers.google.com/maps/documentation/javascript/get-api-key)
+- [London Unified APP Key and API ID](https://api.tfl.gov.uk/)
 
-Place the corresponding keys in [constants](https://github.com/mavridiSS/london-unified-transport/blob/master/src/constants/index.jsx)
+Place the corresponding keys [here](https://github.com/mavridiSS/london-unified-transport/blob/master/src/constants/index.jsx)
